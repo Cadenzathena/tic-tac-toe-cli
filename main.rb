@@ -10,6 +10,13 @@ prompt = TTYWrapper.new
 
 Player.get_players(player_one, player_two)
 
-Player.current_turn
+Player.log_current_turn
 played_move = prompt.select_move(question: "Pick your move", choices: game_state.choices_arr)
 game_state.update_move_registry(played_move)
+game_state.update_choices_array(played_move)
+
+Player.next_turn
+Player.log_current_turn
+played_move = prompt.select_move(question: "Pick your move", choices: game_state.choices_arr)
+game_state.update_move_registry(played_move)
+game_state.update_choices_array(played_move)

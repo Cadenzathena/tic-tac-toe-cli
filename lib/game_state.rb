@@ -1,8 +1,8 @@
 # creates and updates data structures for storing game state
-class GameState
+class GameState < Player
   attr_reader :choices_arr, :move_registry
 
-  def initialize
+  def initialize # rubocop:disable Lint/MissingSuper
     @choices_arr = GameState.create_choices_arr
     @move_registry = GameState.create_move_registry
   end
@@ -28,6 +28,16 @@ class GameState
   end
 
   def update_move_registry(played_move)
-    puts played_move
+    @move_registry.each_key do |key|
+      @move_registry[key] = Player.current_turn.map(&:mark).join if key.to_s == played_move
+    end
+    puts @move_registry
+  end
+
+  def update_choices_array(played_move)
+    @choices_arr.map do |element|
+      element[:disabled] = "" if element[:value] == played_move
+    end
+    puts @choices_arr
   end
 end

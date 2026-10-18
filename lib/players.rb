@@ -14,12 +14,16 @@ class Player
   end
 
   def self.current_turn
-    result = @players_arr.select(&:turn).map(&:name)
-    puts "#{result.join}'S TURN"
+    @players_arr.select(&:turn)
+  end
+
+  def self.log_current_turn
+    result = Player.current_turn
+    puts "#{result.map(&:name).join}'S TURN"
   end
 
   def self.next_turn
-    @players_arr.map! do |element|
+    @players_arr.map do |element|
       element.turn = !element.turn
       element
     end
