@@ -8,7 +8,7 @@ class TTYWrapper
     @prompt.yes?(question)
   end
 
-  def select(question:, choices:)
+  def select_move(question:, choices:)
     @prompt.select(question, choices)
   end
 end
