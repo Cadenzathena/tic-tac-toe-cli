@@ -1,30 +1,49 @@
+# updates game statistics
 class MoveRecord
   attr_reader :prompt_choices_array, :played_moves_hash
 
   def initialize
-    @prompt_choices_array = MoveRecord.init_prompt_choices_array
-    @played_moves_hash = MoveRecord.init_played_moves_hash
+    @prompt_choices_array = init_prompt_choices_array
+    @played_moves_array = init_played_moves_array
   end
 
-  def self.init_prompt_choices_array # rubocop:disable Metrics/MethodLength
+  private
+
+  def init_prompt_choices_array # rubocop:disable Metrics/MethodLength
     [
-      { name: "cell-1", value: "one" },
-      { name: "cell-2", value: "two" },
-      { name: "cell-3", value: "three" },
-      { name: "cell-4", value: "four" },
-      { name: "cell-5", value: "five" },
-      { name: "cell-6", value: "six" },
-      { name: "cell-7", value: "seven" },
-      { name: "cell-8", value: "eight" },
-      { name: "cell-9", value: "nine" }
+      { name: "cell-1", value: 1 },
+      { name: "cell-2", value: 2 },
+      { name: "cell-3", value: 3 },
+      { name: "cell-4", value: 4 },
+      { name: "cell-5", value: 5 },
+      { name: "cell-6", value: 6 },
+      { name: "cell-7", value: 7 },
+      { name: "cell-8", value: 8 },
+      { name: "cell-9", value: 9 }
     ]
   end
 
-  def self.init_played_moves_hash
+  def init_played_moves_array
     [
-      { one: nil, two: nil, three: nil },
-      { four: nil, five: nil, six: nil },
-      { seven: nil, eight: nil, nine: nil }
+      { one: 1, two: 2, three: 3 },
+      { four: 4, five: 5, six: 6 },
+      { seven: 7, eight: 8, nine: 9 }
     ]
+  end
+
+  public
+
+  def update_played_moves_array(selected_move)
+    @played_moves_array.each do |element|
+      element.transform_values! do |value|
+        selected_move == value ? PlayerTurn.current_turn_mark : value
+      end
+    end
+    puts @played_moves_array
+  end
+
+  def update_prompt_choices_array(selected_move)
+    @prompt_choices_array.at(selected_move - 1)[:disabled] = ""
+    puts @prompt_choices_array
   end
 end

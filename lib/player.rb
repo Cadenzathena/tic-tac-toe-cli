@@ -7,8 +7,4 @@ class Player
     @mark = mark
     @turn = turn
   end
-
-  def self.play_move(prompt, move_record)
-    prompt.select_move(question: "Pick your move", choices: move_record.prompt_choices_array)
-  end
 end

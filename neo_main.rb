@@ -11,4 +11,10 @@ prompt = TTYWrapper.new
 
 PlayerTurn.load_players(player_one, player_two)
 PlayerTurn.print_current_turn
-selected_move = Player.play_move(prompt, move_record)
+
+selected_move = prompt.select_move(
+  question: "Pick your move",
+  choices: move_record.prompt_choices_array
+)
+move_record.update_played_moves_array(selected_move)
+move_record.update_prompt_choices_array(selected_move)
