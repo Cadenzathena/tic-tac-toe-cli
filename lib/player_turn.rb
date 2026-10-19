@@ -1,5 +1,5 @@
 # switch to next player turn and check who's turn it is
-class PlayerTurn < Player
+class PlayerTurn
   def self.load_players(player_one, player_two)
     @players_arr = [player_one, player_two]
   end

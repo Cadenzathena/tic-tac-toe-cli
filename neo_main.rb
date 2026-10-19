@@ -1,7 +1,7 @@
 require "tty-prompt"
 require_relative "lib/tty_prompt"
-require_relative "lib/player-class/player"
-require_relative "lib/player-class/player_turn"
+require_relative "lib/player"
+require_relative "lib/player_turn"
 require_relative "lib/move_record"
 
 player_one = Player.new(name: "PLAYER 1", mark: "X", turn: true)
