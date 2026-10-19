@@ -1,10 +1,10 @@
 # creates and updates data structures for storing game state
-class GameState < Player
+class GameRecord < Player
   attr_reader :choices_arr, :move_registry
 
   def initialize # rubocop:disable Lint/MissingSuper
-    @choices_arr = GameState.create_choices_arr
-    @move_registry = GameState.create_move_registry
+    @choices_arr = GameRecord.create_choices_arr
+    @move_registry = GameRecord.create_move_registry
   end
 
   def self.create_choices_arr # rubocop:disable Metrics/MethodLength
@@ -22,22 +22,26 @@ class GameState < Player
   end
 
   def self.create_move_registry
-    { one: nil, two: nil, three: nil,
-      four: nil, five: nil, six: nil,
-      seven: nil, eight: nil, nine: nil }
+    [
+      { one: nil, two: nil, three: nil },
+      { four: nil, five: nil, six: nil },
+      { seven: nil, eight: nil, nine: nil }
+    ]
   end
 
   def update_move_registry(played_move)
-    @move_registry.each_key do |key|
-      @move_registry[key] = Player.current_turn.map(&:mark).join if key.to_s == played_move
+    @move_registry.each do |element|
+      element.each_key do |key|
+        element[key] = Player.current_turn.map(&:mark).join if key.to_s == played_move
+      end
     end
-    puts @move_registry
+    # puts @move_registry
   end
 
   def update_choices_array(played_move)
     @choices_arr.map do |element|
       element[:disabled] = "" if element[:value] == played_move
     end
-    puts @choices_arr
+    # puts @choices_arr
   end
 end
