@@ -1,20 +1,22 @@
 # switch to next player turn and check who's turn it is
 class PlayerTurn
-  def self.load_players(player_one, player_two)
-    @players_arr = [player_one, player_two]
+  def initialize(p1_turn:, p2_turn:)
+    @players_turn_arr = [p1_turn, p2_turn]
   end
 
-  def self.current_turn
-    @players_arr.select(&:turn)[0]
+  private
+
+  def current_turn
+    @players_turn_arr.index(true)
   end
 
-  private_class_method :current_turn
+  public
 
-  def self.print_current_turn
-    puts "#{current_turn.name}'S TURN"
+  def print_current_turn(p1_name:, p2_name:)
+    puts "#{[p1_name, p2_name].at(current_turn)}'S TURN"
   end
 
-  def self.current_turn_mark
-    current_turn.mark
+  def current_player_mark(p1_mark:, p2_mark:)
+    [p1_mark, p2_mark].at(current_turn)
   end
 end

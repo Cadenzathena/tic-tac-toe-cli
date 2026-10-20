@@ -33,10 +33,10 @@ class MoveRecord
 
   public
 
-  def update_played_moves_array(selected_move)
+  def update_played_moves_array(selected_move, current_player_mark)
     @played_moves_array.each do |element|
       element.transform_values! do |value|
-        selected_move == value ? PlayerTurn.current_turn_mark : value
+        selected_move == value ? current_player_mark : value
       end
     end
     puts @played_moves_array
