@@ -1,6 +1,6 @@
 # updates game statistics
 class MoveRecord
-  attr_reader :prompt_choices_array, :played_moves_hash
+  attr_reader :prompt_choices_array, :played_moves_array
 
   def initialize
     @prompt_choices_array = init_prompt_choices_array
@@ -44,6 +44,5 @@ class MoveRecord
 
   def update_prompt_choices_array(selected_move)
     @prompt_choices_array.at(selected_move - 1)[:disabled] = ""
-    puts @prompt_choices_array
   end
 end

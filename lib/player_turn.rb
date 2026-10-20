@@ -12,11 +12,15 @@ class PlayerTurn
 
   public
 
-  def print_current_turn(p1_name:, p2_name:)
+  def print_current_turn(p1_name, p2_name)
     puts "#{[p1_name, p2_name].at(current_turn)}'S TURN"
   end
 
-  def current_player_mark(p1_mark:, p2_mark:)
+  def current_player_mark(p1_mark, p2_mark)
     [p1_mark, p2_mark].at(current_turn)
+  end
+
+  def next_turn
+    @players_turn_arr.map!(&:!)
   end
 end
