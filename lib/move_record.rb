@@ -25,18 +25,18 @@ class MoveRecord
 
   def init_played_moves_array
     [
-      { one: 1, two: 2, three: 3 },
-      { four: 4, five: 5, six: 6 },
-      { seven: 7, eight: 8, nine: 9 }
+      { 1 => "cell-1", 2 => "cell-2", 3 => "cell-3" },
+      { 4 => "cell-4", 5 => "cell-5", 6 => "cell-6" },
+      { 7 => "cell-7", 8 => "cell-8", 9 => "cell-9" }
     ]
   end
 
   public
 
   def update_played_moves_array(selected_move, current_player_mark)
-    @played_moves_array.each do |element|
-      element.transform_values! do |value|
-        selected_move == value ? current_player_mark : value
+    @played_moves_array.map! do |hash|
+      hash.to_h do |key, value|
+        [key, selected_move == key ? current_player_mark : value]
       end
     end
     puts @played_moves_array
