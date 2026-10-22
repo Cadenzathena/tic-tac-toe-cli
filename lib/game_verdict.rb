@@ -1,34 +1,28 @@
 # determines the final verdict of the game
 class GameVerdict
-  def check_game_verdict(played_moves_array)
-    check_rows(played_moves_array)
-    check_columns(played_moves_array)
-    check_left_diagonal(played_moves_array)
-    check_right_diagonal(played_moves_array)
-    final_judgement
+  def check_win_verdict(played_moves_array)
+    [
+      check_row(played_moves_array),
+      check_column(played_moves_array),
+      check_left_diagonal(played_moves_array),
+      check_right_diagonal(played_moves_array)
+    ].each do |method|
+      return method if method != ""
+    end
   end
 
   private
 
-  def check_rows(played_moves_array)
-    played_moves_array.each do |hash|
-      next unless hash.values.uniq.length == 1
-
-      @verdict = "win"
-      @mark = hash.values.uniq.join
-    end
+  def check_row(played_moves_array)
+    played_moves_array.filter_map do |hash|
+      return hash.values.uniq.join if hash.values.uniq.length == 1
+    end.join
   end
 
-  def check_columns(played_moves_array)
-    i = 0
-    3.times do
+  def check_column(played_moves_array)
+    3.times do |i|
       column = played_moves_array.map { |hash| hash.values[i] || next }
-      if column.uniq.length == 1
-        @verdict = "win"
-        @mark = column.uniq.join
-        break
-      end
-      i += 1
+      return column.uniq.length == 1 ? column.uniq.join : ""
     end
   end
 
@@ -38,10 +32,7 @@ class GameVerdict
       i += 1
       hash.values[i]
     end
-    return unless diagonal.uniq.length == 1
-
-    @verdict = "win"
-    @mark = diagonal.uniq.join
+    diagonal.uniq.length == 1 ? diagonal.uniq.join : ""
   end
 
   def check_right_diagonal(played_moves_array)
@@ -50,24 +41,6 @@ class GameVerdict
       i -= 1
       hash.values[i]
     end
-    return unless diagonal.uniq.length == 1
-
-    @verdict = "win"
-    @mark = diagonal.uniq.join
-  end
-
-  def final_judgement
-    if @verdict == "win" # rubocop:disable Style/GuardClause
-      case @mark
-      when "X"
-        puts "PLAYER 1 WINS!"
-        @verdict
-      when "O"
-        puts "PLAYER 2 WINS!"
-        @verdict
-      end
-    # else
-    #   puts "WHAT A DRAW!" # rubocop:disable Layout/CommentIndentation
-    end
+    diagonal.uniq.length == 1 ? diagonal.uniq.join : ""
   end
 end
