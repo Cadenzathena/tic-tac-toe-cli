@@ -1,4 +1,5 @@
 require "tty-prompt"
+require "colorize"
 require_relative "lib/tty_prompt"
 require_relative "lib/player"
 require_relative "lib/player_turn"
@@ -12,10 +13,9 @@ move_record = MoveRecord.new
 game_verdict = GameVerdict.new
 prompt = TTYWrapper.new
 
-# debugger
-9.times do |number|
-  $number = number # FOR DEBUGGING! REMOVE THIS!!!!!!!!!!
+9.times do |number| # rubocop:disable Metrics/BlockLength
   player_turn.print_current_turn(player_one.name, player_two.name)
+  move_record.print_played_moves_array
 
   selected_move = prompt.select_move(
     question: "Pick your move",
@@ -31,15 +31,17 @@ prompt = TTYWrapper.new
 
   case game_verdict.check_win_verdict(move_record.played_moves_array)
   when "X"
-    puts "PLAYER 1 WINS!"
+    puts "PLAYER 1 WINS!".colorize(background: :green)
+    move_record.print_played_moves_array
     break
   when "O"
-    puts "PLAYER 2 WINS!"
+    puts "PLAYER 2 WINS!".colorize(background: :green)
+    move_record.print_played_moves_array
     break
   end
-
   if number == 8
-    puts "WHAT A DRAW!"
+    puts "WHAT A DRAW!".colorize(background: :green)
+    move_record.print_played_moves_array
     break
   end
 

@@ -13,7 +13,7 @@ class PlayerTurn
   public
 
   def print_current_turn(p1_name, p2_name)
-    puts "#{[p1_name, p2_name].at(current_turn)}'S TURN"
+    puts "#{[p1_name, p2_name].at(current_turn)}'S TURN".colorize(background: :blue)
   end
 
   def current_player_mark(p1_mark, p2_mark)

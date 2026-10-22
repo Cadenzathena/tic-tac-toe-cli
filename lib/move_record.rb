@@ -25,9 +25,9 @@ class MoveRecord
 
   def init_played_moves_array
     [
-      { 1 => "cell-1", 2 => "cell-2", 3 => "cell-3" },
-      { 4 => "cell-4", 5 => "cell-5", 6 => "cell-6" },
-      { 7 => "cell-7", 8 => "cell-8", 9 => "cell-9" }
+      { 1 => 1, 2 => 2, 3 => 3 },
+      { 4 => 4, 5 => 5, 6 => 6 },
+      { 7 => 7, 8 => 8, 9 => 9 }
     ]
   end
 
@@ -39,10 +39,19 @@ class MoveRecord
         [key, selected_move == key ? current_player_mark : value]
       end
     end
-    puts @played_moves_array
   end
 
   def update_prompt_choices_array(selected_move)
     @prompt_choices_array.at(selected_move - 1)[:disabled] = ""
+  end
+
+  def print_played_moves_array # rubocop:disable Metrics/AbcSize
+    puts "
+    #{@played_moves_array[0][1]} | #{@played_moves_array[0][2]} | #{@played_moves_array[0][3]}
+    — — — — —
+    #{@played_moves_array[1][4]} | #{@played_moves_array[1][5]} | #{@played_moves_array[1][6]}
+    — — — — —
+    #{@played_moves_array[2][7]} | #{@played_moves_array[2][8]} | #{@played_moves_array[2][9]}
+    "
   end
 end
