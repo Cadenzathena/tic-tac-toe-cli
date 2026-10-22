@@ -4,10 +4,6 @@ class TTYWrapper
     @prompt = TTY::Prompt.new
   end
 
-  def yes?(question:)
-    @prompt.yes?(question)
-  end
-
   def select_move(question:, choices:)
     @prompt.select(question, choices)
   end
